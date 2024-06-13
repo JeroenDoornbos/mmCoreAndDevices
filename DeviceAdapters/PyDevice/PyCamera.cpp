@@ -27,10 +27,16 @@ int CPyCamera::ConnectMethods(const PyObj& methods)
 
 int CPyCamera::SnapImage()
 {
-    auto frame = read_.Call();
     ReleaseBuffer();
-    if (PyObject_GetBuffer(frame, &lastFrame_, PyBUF_C_CONTIGUOUS) == -1)
-        this->LogMessage("Error, 'image' property should return a numpy array");
+    auto frame = read_.Call();
+    _check_(CheckError());
+    if (frame == Py_None || !frame)
+    {
+        this->LogMessage("Error", "read() returned None");
+        return ERR_PYTHON_EXCEPTION;
+    }
+    if (PyObject_GetBuffer(frame, &lastFrame_, PyBUF_C_CONTIGUOUS) != -1) 
+        this->LogMessage("Error, 'image' property should return an array object");
     return CheckError();
 }
 
