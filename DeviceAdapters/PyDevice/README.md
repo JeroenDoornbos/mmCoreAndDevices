@@ -74,7 +74,7 @@ It is also possible to define other device types. PyDevice will automatically de
     - `width` (int): the width of the region of interest
     - `height` (int): the height of the region of interest
     - `binning` (int): the binning factor. This property is optional, and defaults to 1
-    - `read()` (method): acquire an image and return it as a numpy array, or as any object that implements the Python buffer protocol (such as a pytoch object).
+    - `read()` (method): acquire an image and return it as a numpy array, or as any object that implements the Python buffer protocol (such as a pytorch object).
     - `busy()` (method): return `True` if the camera is busy acquiring an image
 
 - `Stage`: requires the following properties and methods:
